@@ -43,6 +43,12 @@ inputs:
   title: Cache Credentials
   description: If this set to true, the credentials will be cached. This can be useful if the same credentials are used for multiple repositories.
   helpText:
+- key: "AC_GIT_EXTRA_PARAMS"
+  isRequired: false
+  defaultValue: "$AC_GIT_EXTRA_PARAMS"
+  title: Git Extra Params
+  description: If this set, sends extra parameter for git requests.
+  helpText:
 outputs:
 - key: "AC_REPOSITORY_DIR"
   title: Repository Directory

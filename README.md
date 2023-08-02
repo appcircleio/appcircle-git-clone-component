@@ -17,6 +17,7 @@ Optional Input Variables
 - `$AC_GIT_TAG`: Tag of the repository
 - `AC_GIT_SUBMODULE`: Used to specify whether the submodule should be cloned.
 - `AC_GIT_CACHE_CREDENTIALS`: If this set to true, the credentials will be cached to memory. This can be useful if the same credentials are used for multiple repositories.
+- `AC_GIT_EXTRA_PARAMS`: If this set, sends extra parameter for git requests.
 
 Output Variables
 - `$AC_REPOSITORY_DIR`: Outputs the cloned repository directory.

@@ -37,12 +37,13 @@ options[:commit] = ENV["AC_GIT_COMMIT"]
 options[:lfs] = ENV["AC_GIT_LFS"]
 options[:submodule] = ENV["AC_GIT_SUBMODULE"]
 options[:repository_path] = "#{temporary_path}/Repository"
+options[:extra_params] = env_has_key("AC_GIT_EXTRA_PARAMS")
 
 Dir.mkdir("#{options[:repository_path]}")
 
 sh_script_path = "#{File.expand_path(File.dirname(__FILE__))}/git_clone.sh"
 
-command = "bash #{sh_script_path} --localPath=#{options[:repository_path]} --gitURL=#{options[:git_url]}"
+command = "bash #{sh_script_path} --localPath=#{options[:repository_path]} --gitURL=#{options[:git_url]} --extraParams='#{options[:extra_params]}'"
 
 if options[:commit]
   if options[:branch]

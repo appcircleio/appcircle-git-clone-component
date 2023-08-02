@@ -10,6 +10,7 @@ SUBMODULE=true
 LFS=true
 REFERENCE=''
 IS_SPECIFIC_COMMIT=false
+GIT_EXTRA_PARAMS=''
 for i in "$@"
 do
 case $i in
@@ -40,6 +41,10 @@ case $i in
     --submodule=*)
     SUBMODULE="${i#*=}"
     shift # past argument=value
+    ;;
+    --extraParams=*)
+    shift
+    GIT_EXTRA_PARAMS="${i#*=}"
     ;;
     --default)
     DEFAULT=YES
@@ -101,6 +106,13 @@ fi
         runCommand git config remote.origin.lfsurl "${GIT_URL}/info/ls"
         runCommand git config remote.origin.lfspushurl "${GIT_URL}/info/ls"
     fi
+    
+    if [ ! -z "${GIT_EXTRA_PARAMS}" ] ; then
+
+        gitUrlDomain=$(echo "$GIT_URL" | sed -e 's|^\(.*://[^/]*\).*|\1|')
+        echo "adding extra http header :  git config --local --add http.${gitUrlDomain}.extraHeader \"Authorization: Basic *********\""
+        git config --local --add http."${gitUrlDomain}".extraHeader "Authorization: Basic ${GIT_EXTRA_PARAMS}"
+    fi
 
     fill
 
@@ -119,7 +131,7 @@ fi
     if [ "$LFS" = true ] ; then
         runCommand git lfs fetch origin "${REFERENCE}"
     fi
-    runCommand git checkout --progress --force "${REFERENCE}"
+    runCommand git checkout --progress --force "${REFERENCE}" 
 
     if [ "$SUBMODULE" = true ] ; then
         runCommand git submodule sync --recursive
