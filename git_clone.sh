@@ -134,8 +134,23 @@ fi
     runCommand git checkout --progress --force "${REFERENCE}" 
 
     if [ "$SUBMODULE" = true ] ; then
+
+         if [ ! -z "${GIT_EXTRA_PARAMS}" ] ; then
+            gitUrlDomain=$(echo "$GIT_URL" | sed -e 's|^\(.*://[^/]*\).*|\1|')
+            echo "adding extra global http header for submodule :  git config --local --add http.${gitUrlDomain}.extraHeader \"Authorization: Basic *********\""
+            git config --global --add http."${gitUrlDomain}".extraHeader "Authorization: Basic ${GIT_EXTRA_PARAMS}"
+        fi
+
         runCommand git submodule sync --recursive
         runCommand git submodule update --init --force --recursive
+
+        if [ ! -z "${GIT_EXTRA_PARAMS}" ] ; then
+            gitUrlDomain=$(echo "$GIT_URL" | sed -e 's|^\(.*://[^/]*\).*|\1|')
+            echo "removing extra global http header for submodule :  git config --global --unset-all http.${gitUrlDomain}.extraHeader"
+            git config --global --unset-all "http.${gitUrlDomain}.extraHeader"
+            
+        fi
+
     fi
     
     runCommand git remote set-url origin "${GIT_URL}"
