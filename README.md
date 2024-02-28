@@ -7,11 +7,13 @@ You can use this component with the following options:
 - git branch name and git commit hash
 - git tag
 
-## Required Input Variables
+## Input Variables
+
+### Required
 
 - `AC_GIT_URL`: Specifies the Git URL of the project repository.
 
-## Optional Inputs Variables
+### Optional
 
 - `AC_GIT_COMMIT`: Specifies the commit of the Git repository to be built.
 - `AC_GIT_BRANCH`: Specifies the branch of the Git repository to be built.
@@ -25,14 +27,19 @@ You can use this component with the following options:
 
 - `AC_REPOSITORY_DIR`: Repository Directory. Specifies outputs the cloned repository directory.
 
-## Required Steps
+## Relationship
 
-- There is no required step that needs to be run afterward for this step to work as expected.
+Below workflow steps are related with this step and should be used as recommended.
 
-## Preceding Steps
+### Required Steps
 
--  Activate SSH Key
+There is no required step that needs to be run beforehand for this step to work as expected.
 
-## Following Steps
+### Preceding Steps
 
-- There are no subsequent steps advised to be run for this step to work as expected.
+Below are the steps that should be run beforehand if they are used in the workflow with this step.
+- [Activate SSH Key](https://github.com/appcircleio/appcircle-activate-ssh-key-component.git)
+
+### Following Steps
+
+There are no subsequent steps advised to be run for this step to work as expected.
