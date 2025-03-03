@@ -53,7 +53,7 @@ if options[:commit]
     raise "Commit parameter cannot be used without branch parameter."
   end 
 elsif options[:branch]
-  command.concat(" --branch=#{options[:branch]}")
+  command.concat(" --branch='#{options[:branch]}'")
 elsif options[:tag]
   command.concat(" --tag=#{options[:tag]}")
 else
