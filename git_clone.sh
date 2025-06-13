@@ -46,6 +46,14 @@ case $i in
     shift
     GIT_EXTRA_PARAMS="${i#*=}"
     ;;
+    --authType=*)
+    GIT_PROVIDER_AUTH_TYPE="${i#*=}"
+    shift
+    ;;
+    --authToken=*)
+    GIT_PROVIDER_TOKEN="${i#*=}"
+    shift
+    ;;
     --default)
     DEFAULT=YES
     shift # past argument with no value
@@ -106,7 +114,16 @@ fi
         runCommand git config remote.origin.lfsurl "${GIT_URL}/info/ls"
         runCommand git config remote.origin.lfspushurl "${GIT_URL}/info/ls"
     fi
-    
+
+    if [[ "${GIT_PROVIDER_AUTH_TYPE}" == "Bearer" ]]; then
+        if [ -z "$GIT_PROVIDER_TOKEN" ]; then
+            echo "Error: GIT_PROVIDER_TOKEN is required when GIT_PROVIDER_AUTH_TYPE is set to 'Bearer'"
+            exit 1
+        fi
+
+        runCommand git config --local --add http."${GIT_URL}".extraHeader "Authorization: Bearer ${GIT_PROVIDER_TOKEN}"
+    fi
+
     if [ ! -z "${GIT_EXTRA_PARAMS}" ] ; then
 
         gitUrlDomain=$(echo "$GIT_URL" | sed -e 's|^\(.*://[^/]*\).*|\1|')
