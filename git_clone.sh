@@ -98,8 +98,8 @@ fi
     }
 
     function runCommand(){
-     echo $@
-     $@
+     echo "@@[command] $*"
+     "$@"
     }
 
     runCommand git --version
