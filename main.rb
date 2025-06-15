@@ -6,7 +6,8 @@ def env_has_key(key)
 end
 
 def run_command(command)
-  puts "@@[command] #{command}"
+  masked_command = command.gsub(/--authToken='[^']*'/, "--authToken='*****'")
+  puts "@@[command] #{masked_command}"
   status = nil
   stdout_str = nil
   stderr_str = nil
