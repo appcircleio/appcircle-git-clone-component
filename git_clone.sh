@@ -121,8 +121,7 @@ fi
             exit 1
         fi
 
-        echo "git config --local --add http.${GIT_URL}.extraHeader Authorization: Bearer *****"
-        git config --local --add "http.${GIT_URL}.extraHeader" "Authorization: Bearer ${GIT_PROVIDER_TOKEN}"
+        runCommand git config --local --add "http.${GIT_URL}.extraHeader" "Authorization: Bearer ${GIT_PROVIDER_TOKEN}"
     fi
 
     if [ ! -z "${GIT_EXTRA_PARAMS}" ] ; then
