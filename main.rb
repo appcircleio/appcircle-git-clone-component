@@ -60,7 +60,7 @@ if options[:commit]
 elsif options[:branch]
   command.concat(" --branch='#{options[:branch]}'")
 elsif options[:tag]
-  command.concat(" --tag='#{options[:tag]}'")
+  command.concat(" --tag=#{options[:tag]}")
 else
   raise "One of Branch, tag and commit parameters must have value."
 end  
