@@ -53,14 +53,14 @@ command << " --authToken='#{options[:auth_token]}'" if options[:auth_token]
 if options[:commit]
   if options[:branch]
     command.concat(" --commit=#{options[:commit]}")
-    command.concat(" --branch=#{options[:branch]}")
+    command.concat(" --branch='#{options[:branch]}'")
   else
     raise "Commit parameter cannot be used without branch parameter."
   end 
 elsif options[:branch]
   command.concat(" --branch='#{options[:branch]}'")
 elsif options[:tag]
-  command.concat(" --tag=#{options[:tag]}")
+  command.concat(" --tag='#{options[:tag]}'")
 else
   raise "One of Branch, tag and commit parameters must have value."
 end  
