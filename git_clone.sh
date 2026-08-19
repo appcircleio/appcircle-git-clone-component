@@ -170,7 +170,7 @@ fi
                 runCommand git fetch
             fi
         elif [ ! -z "${BRANCH}" ]; then
-            runCommand git fetch --prune --progress --no-recurse-submodules origin "${BRANCH}" --depth="$FETCH_DEPTH"
+            runCommand git fetch --prune --no-recurse-submodules origin "${BRANCH}" --depth="$FETCH_DEPTH"
             # A shallow fetch only contains the latest commits of the branch, so the given
             # commit is missing when it is older than the fetched depth. Complete the history
             # in that case, which is what the component does without a depth.
@@ -184,7 +184,7 @@ fi
             fi
         else
             # Fetching a bare commit needs uploadpack.allowReachableSHA1InWant on the server.
-            if ! runCommand git fetch --prune --progress --no-recurse-submodules origin "${COMMIT}" --depth="$FETCH_DEPTH" || ! git cat-file -e "${COMMIT}^{commit}" 2>/dev/null; then
+            if ! runCommand git fetch --prune --no-recurse-submodules origin "${COMMIT}" --depth="$FETCH_DEPTH" || ! git cat-file -e "${COMMIT}^{commit}" 2>/dev/null; then
                 echo "Remote did not serve ${COMMIT} directly, fetching the full history."
                 runCommand git fetch
             fi

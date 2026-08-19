@@ -33,7 +33,7 @@ Setting `AC_GIT_FETCH_DEPTH` fetches that many commits instead, for every case i
 
 The same depth is applied to the submodules, together with `--recommend-shallow`, at every level of the recursive submodule update. Note that a submodule pinned to a commit that its remote no longer advertises cannot be fetched shallowly; leave `AC_GIT_FETCH_DEPTH` empty for such repositories.
 
-Leaving `AC_GIT_FETCH_DEPTH` empty keeps every Git command the component runs exactly as it was.
+Leaving `AC_GIT_FETCH_DEPTH` empty keeps the previous fetch behavior unchanged, for the submodules as well as for the repository itself.
 
 ## Output Variables
 
