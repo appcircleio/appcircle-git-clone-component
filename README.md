@@ -22,6 +22,18 @@ You can use this component with the following options:
 - `AC_GIT_SUBMODULE`: Used to specify whether the submodule should be cloned.
 - `AC_GIT_CACHE_CREDENTIALS`: If this set to true, the credentials will be cached to memory. This can be useful if the same credentials are used for multiple repositories.
 - `AC_GIT_EXTRA_PARAMS`: If this set, sends extra parameter for git requests.
+- `AC_GIT_FETCH_DEPTH`: Number of commits fetched for the given reference and for the submodules. Empty by default, which keeps the fetch behavior described below unchanged.
+- `AC_GIT_FETCH_JOBS`: Number of parallel jobs Git uses while fetching, including the recursive submodule update. Empty by default, which leaves the parallelism to Git.
+
+## Fetch Depth
+
+By default a branch or a tag is fetched with `--depth=1`, and a branch with a specific commit hash is fetched with its full history, because the given commit can be any commit of that branch. Fetching the full history is slow on large repositories.
+
+Setting `AC_GIT_FETCH_DEPTH` fetches that many commits instead, for every case including a branch with a specific commit hash. The requested commit is still guaranteed to be checked out: when it turns out to be older than the fetched depth, the remaining history of the branch is fetched before the checkout, so the depth only affects how much is transferred, never the result.
+
+The same depth is applied to the submodules, together with `--recommend-shallow`, at every level of the recursive submodule update. Note that a submodule pinned to a commit that its remote no longer advertises cannot be fetched shallowly; leave `AC_GIT_FETCH_DEPTH` empty for such repositories.
+
+Leaving `AC_GIT_FETCH_DEPTH` empty keeps every Git command the component runs exactly as it was.
 
 ## Output Variables
 
