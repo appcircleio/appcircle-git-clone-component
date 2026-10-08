@@ -138,8 +138,8 @@ fi
     runCommand git remote set-url --push origin "${GIT_URL}"
     if [ "$LFS" = true ] ; then
         runCommand git lfs install --local
-        runCommand git config remote.origin.lfsurl "${GIT_URL}/info/ls"
-        runCommand git config remote.origin.lfspushurl "${GIT_URL}/info/ls"
+        runCommand git config remote.origin.lfsurl "${GIT_URL}/info/lfs"
+        runCommand git config remote.origin.lfspushurl "${GIT_URL}/info/lfs"
     else
         # The runner image enables the git-lfs filter globally, so checkout would still download
         # LFS files. Keep them as pointers when LFS is off.
