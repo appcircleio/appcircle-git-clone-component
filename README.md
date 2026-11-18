@@ -55,3 +55,13 @@ Below are the steps that should be run beforehand if they are used in the workfl
 ### Following Steps
 
 There are no subsequent steps advised to be run for this step to work as expected.
+
+## Running tests
+
+Requires the [RSpec](https://rspec.info) gem and the Ruby standard library (Coverage, Open3). No Gemfile or Bundler needed.
+
+```bash
+ruby test/test_main.rb
+```
+
+Tests never touch the network or execute a real toolchain: `run_command` is verified by asserting the composed command with `Open3.popen3` stubbed, and subprocess tests run `main.rb` against fake `bash` and `git` executables on `PATH` (with `HOME` pointed at a temporary directory, so the global git config is never modified). All files are written inside a temporary directory. A coverage report is printed at the end of each run.
